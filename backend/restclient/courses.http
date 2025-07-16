@@ -1,0 +1,102 @@
+### Courses Endpoints Tests
+
+@baseUrl = http://localhost:3000
+@coursesUrl = {{baseUrl}}/courses
+
+### Note: These endpoints require authentication
+### First login to get access token, then use it in Authorization header
+
+### 1. Create a new course with modules and lessons (requires INSTRUCTOR or ADMIN role)
+POST {{coursesUrl}}
+Authorization: Bearer your-access-token-here
+Content-Type: application/json
+
+{
+  "title": "Introduction to Web Development",
+  "description": "Learn the basics of HTML, CSS, and JavaScript",
+  "objectives": [
+    "Understand HTML structure and semantics",
+    "Style pages with CSS",
+    "Add interactivity with JavaScript"
+  ],
+  "prerequisites": [
+    "Basic computer skills",
+    "No prior programming experience required"
+  ],
+  "categoryId": "your-category-id-here",
+  "difficulty": "BEGINNER",
+  "price": 99.99,
+  "imageUrl": "https://example.com/thumbnail.jpg",
+  "modules": [
+    {
+      "title": "HTML Fundamentals",
+      "description": "Learn the basics of HTML markup",
+      "order": 1,
+      "lessons": [
+        {
+          "title": "Introduction to HTML",
+          "description": "What is HTML and why we use it",
+          "contentType": "video",
+          "contentUrl": "https://example.com/video1.mp4",
+          "order": 1
+        },
+        {
+          "title": "HTML Structure",
+          "description": "Basic HTML document structure",
+          "contentType": "text",
+          "contentUrl": "https://example.com/lesson1.html",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "title": "CSS Styling",
+      "description": "Learn to style your HTML pages",
+      "order": 2,
+      "lessons": [
+        {
+          "title": "CSS Basics",
+          "description": "Introduction to CSS selectors and properties",
+          "contentType": "video",
+          "contentUrl": "https://example.com/video2.mp4",
+          "order": 1
+        }
+      ]
+    }
+  ]
+}
+
+### 2. Get all courses
+GET {{coursesUrl}}
+
+### 3. Get course by ID (replace with actual course ID)
+GET {{coursesUrl}}/course-id-here
+
+### 4. Update course
+PATCH {{coursesUrl}}/course-id-here
+Authorization: Bearer your-access-token-here
+Content-Type: application/json
+
+{
+  "title": "Updated Course Title",
+  "description": "Updated course description",
+  "price": 129.99
+}
+
+### 5. Delete course
+DELETE {{coursesUrl}}/course-id-here
+Authorization: Bearer your-access-token-here
+
+### 6. Get non-existent course
+GET {{coursesUrl}}/non-existent-id
+
+### 7. Create course with invalid data
+POST {{coursesUrl}}
+Authorization: Bearer your-access-token-here
+Content-Type: application/json
+
+{
+  "title": "",
+  "description": "Invalid course",
+  "price": -10
+} 
